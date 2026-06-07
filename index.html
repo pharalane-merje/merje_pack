@@ -371,7 +371,7 @@
       <div class="item-list" id="list-sons">
 
         <div class="item" data-id="disc11" data-group="sons"
-             data-files='["assets/minecraft/sounds/records/11.ogg"]'
+             data-files='["assets/minecraft/sounds/music_disc/11.ogg"]'
              onclick="toggleItem(this)">
           <div class="cb-wrap"><span class="cb-tick">✓</span></div>
           <div class="item-info">
@@ -382,7 +382,7 @@
         </div>
 
         <div class="item" data-id="creeper-death" data-group="sons"
-             data-files='["assets/minecraft/sounds/mob/creeper/death.ogg"]'
+             data-files='["assets/minecraft/sounds/entity/creeper/death.ogg"]'
              onclick="toggleItem(this)">
           <div class="cb-wrap"><span class="cb-tick">✓</span></div>
           <div class="item-info">
@@ -393,7 +393,7 @@
         </div>
 
         <div class="item" data-id="creeper-sss" data-group="sons"
-             data-files='["assets/minecraft/sounds/mob/creeper/say.ogg"]'
+             data-files='["assets/minecraft/sounds/entity/creeper/primed.ogg"]'
              onclick="toggleItem(this)">
           <div class="cb-wrap"><span class="cb-tick">✓</span></div>
           <div class="item-info">
@@ -544,9 +544,9 @@
   // ── Fichiers chiffrés sur GitHub (stockés en .enc) ──
   // Ajoute ici le chemin exact des sons que tu veux protéger
   const FICHIERS_CHIFFRES = new Set([
-    "assets/minecraft/sounds/records/11.ogg",
-    "assets/minecraft/sounds/mob/creeper/death.ogg",
-    "assets/minecraft/sounds/mob/creeper/say.ogg",
+    "assets/minecraft/sounds/music_disc/11.ogg",
+    "assets/minecraft/sounds/entity/creeper/death.ogg",
+    "assets/minecraft/sounds/entity/creeper/primed.ogg",
   ]);
 
   function makeKeystream(key, length) {
@@ -568,8 +568,27 @@
     return out.buffer;
   }
 
-  // Fichiers toujours inclus (obligatoires dans tout resource pack)
-  const BASE_FILES = {
+  // ── SOUNDS.JSON — entrées par item ──
+  const SOUNDS_JSON_ENTRIES = {
+    "disc11": {
+      "music_disc.11": {
+        "replace": true,
+        "sounds": [{ "name": "music_disc/11", "pitch": 1.0, "volume": 1.0 }]
+      }
+    },
+    "creeper-death": {
+      "entity.creeper.death": {
+        "replace": true,
+        "sounds": [{ "name": "entity/creeper/death", "pitch": 1.0, "volume": 1.0 }]
+      }
+    },
+    "creeper-sss": {
+      "entity.creeper.primed": {
+        "replace": true,
+        "sounds": [{ "name": "entity/creeper/primed", "pitch": 1.0, "volume": 1.0 }]
+      }
+    },
+  };
     "pack.mcmeta": JSON.stringify({
       "pack": {
         "pack_format": 15,
@@ -601,11 +620,11 @@
     "Le pack que ta mère utilise !",
     "Optimisé pour les joueurs chill !",
     "Approuvé par Merje lui-même !",
-    "100% cringe-free depuis 2024 !",
+    "100% cringe-free depuis 2023 !",
     "Maintenant avec plus de saucisse !",
     "Vu à la TV* (*non)",
     "Pack certifié ISO 9001 !",
-    "Passe de 60 à 61 fps !"
+    "Passe de 60 à 59 fps !"
   ];
   let si = 0;
   const splashEl = document.getElementById('splash-text');
@@ -672,6 +691,18 @@
 
     // Fichiers de base
     zip.file("pack.mcmeta", BASE_FILES["pack.mcmeta"]);
+
+    // Génération du sounds.json selon les sons cochés
+    let soundsJson = {};
+    for (const el of selected) {
+      const entries = SOUNDS_JSON_ENTRIES[el.dataset.id];
+      if (entries) {
+        soundsJson = Object.assign(soundsJson, entries);
+      }
+    }
+    if (Object.keys(soundsJson).length > 0) {
+      zip.file("assets/minecraft/sounds.json", JSON.stringify(soundsJson, null, 2));
+    }
 
     // Fichiers sélectionnés
     const selected = getSelected();
