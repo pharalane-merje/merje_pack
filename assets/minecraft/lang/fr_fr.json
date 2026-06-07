@@ -1,0 +1,21 @@
+{
+  "menu.singleplayer": "Solo",
+  "menu.multiplayer": "Rejoindre merje",
+  "menu.options": "Paramètres",
+  "menu.quit": "Quitter",
+  "options.title": "ATTENTION !!!!!!!!",
+  "options.video": "La télé la télé la télé",
+  "options.controls": "Avec un UUUUU !!!",
+  "options.sounds": "Alors music MERJE",
+  "options.language": "Brrr, la ponctuation",
+  "options.difficulty.peaceful": "Sohaan",
+  "options.difficulty.easy": "Jules",
+  "options.difficulty.normal": "Raphaël",
+  "options.difficulty.hard": "Darya",
+  "selectWorld.gameMode.hardcore": "LAURA",
+  "death.attack.outOfWorld": "%1$s a littéralement quitté merje.",
+  "death.attack.creeper": "%1$s a subi une explosion de nael"
+  
+
+
+}
