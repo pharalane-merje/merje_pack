@@ -172,6 +172,17 @@
 
     .pano-group { display: flex; flex-direction: column; gap: 10px; }
 
+    .subcategory-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: #ce93d8;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      background: rgba(156,39,176,0.1);
+      border-left: 3px solid rgba(156,39,176,0.5);
+      border-radius: 2px;
+    }
+
     .dl-bar {
       position: sticky; bottom: 24px; z-index: 10;
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -298,59 +309,187 @@
       <span class="section-arrow" id="arrow-sec-visuels">▾</span>
     </div>
     <div class="section-body" id="body-sec-visuels">
-      <div class="item-list">
 
-        <div style="margin-bottom:6px;">
-          <div style="font-family:'Press Start 2P',monospace;font-size:9px;color:#888;margin-bottom:10px;">
-            🌄 Panorama du menu principal <span style="font-family:'VT323',monospace;font-size:16px;">(choisir un seul)</span>
-          </div>
-          <div class="pano-group">
-            <div class="item" data-id="pano-jour" data-group="pano" data-radio="true"
-                 data-files='["assets/minecraft/textures/gui/title/background/panorama_0.png","assets/minecraft/textures/gui/title/background/panorama_1.png","assets/minecraft/textures/gui/title/background/panorama_2.png","assets/minecraft/textures/gui/title/background/panorama_3.png","assets/minecraft/textures/gui/title/background/panorama_4.png","assets/minecraft/textures/gui/title/background/panorama_5.png"]'
-                 onclick="toggleRadio(this)">
-              <div class="rb-wrap"><div class="rb-dot"></div></div>
-              <div class="item-info">
-                <div class="item-name">Panorama — Jour ☀️</div>
-                <div class="item-desc">Version lumineuse du panorama Merje.</div>
-                <span class="item-tag tag-visuel">🖼 Visuel</span>
-              </div>
-            </div>
-            <div class="item" data-id="pano-nuit" data-group="pano" data-radio="true"
-                 data-files='["assets/minecraft/textures/gui/title/background/panorama_0.png","assets/minecraft/textures/gui/title/background/panorama_1.png","assets/minecraft/textures/gui/title/background/panorama_2.png","assets/minecraft/textures/gui/title/background/panorama_3.png","assets/minecraft/textures/gui/title/background/panorama_4.png","assets/minecraft/textures/gui/title/background/panorama_5.png"]'
-                 onclick="toggleRadio(this)">
-              <div class="rb-wrap"><div class="rb-dot"></div></div>
-              <div class="item-info">
-                <div class="item-name">Panorama — Nuit 🌙</div>
-                <div class="item-desc">Version nocturne du panorama Merje.</div>
-                <span class="item-tag tag-visuel">🖼 Visuel</span>
-              </div>
+      <!-- PANORAMA -->
+      <div style="margin-bottom:18px;">
+        <div style="font-family:'Press Start 2P',monospace;font-size:9px;color:#888;margin-bottom:10px;">
+          🌄 Panorama du menu principal <span style="font-family:'VT323',monospace;font-size:16px;">(choisir un seul)</span>
+        </div>
+        <div class="pano-group">
+          <div class="item" data-id="pano-jour" data-group="pano" data-radio="true"
+               data-files='["assets/minecraft/textures/gui/title/background/panorama_0.png","assets/minecraft/textures/gui/title/background/panorama_1.png","assets/minecraft/textures/gui/title/background/panorama_2.png","assets/minecraft/textures/gui/title/background/panorama_3.png","assets/minecraft/textures/gui/title/background/panorama_4.png","assets/minecraft/textures/gui/title/background/panorama_5.png"]'
+               onclick="toggleRadio(this)">
+            <div class="rb-wrap"><div class="rb-dot"></div></div>
+            <div class="item-info">
+              <div class="item-name">Panorama — Jour ☀️</div>
+              <div class="item-desc">Version lumineuse du panorama Merje.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
             </div>
           </div>
-        </div>
-
-        <div class="item" data-id="painting-skeleton" data-group="visuels"
-             data-files='["assets/minecraft/textures/painting/skeleton.png"]'
-             onclick="toggleItem(this)">
-          <div class="cb-wrap"><span class="cb-tick">✓</span></div>
-          <div class="item-info">
-            <div class="item-name">Peinture du Squelette</div>
-            <div class="item-desc">Remplace la peinture du squelette par un homme qui fait des trucs bizarres.</div>
-            <span class="item-tag tag-visuel">🖼 Visuel</span>
+          <div class="item" data-id="pano-nuit" data-group="pano" data-radio="true"
+               data-files='["assets/minecraft/textures/gui/title/background/panorama_0.png","assets/minecraft/textures/gui/title/background/panorama_1.png","assets/minecraft/textures/gui/title/background/panorama_2.png","assets/minecraft/textures/gui/title/background/panorama_3.png","assets/minecraft/textures/gui/title/background/panorama_4.png","assets/minecraft/textures/gui/title/background/panorama_5.png"]'
+               onclick="toggleRadio(this)">
+            <div class="rb-wrap"><div class="rb-dot"></div></div>
+            <div class="item-info">
+              <div class="item-name">Panorama — Nuit 🌙</div>
+              <div class="item-desc">Version nocturne du panorama Merje.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
           </div>
         </div>
-
-        <div class="item" data-id="painting-wanderer" data-group="visuels"
-             data-files='["assets/minecraft/textures/painting/wanderer.png"]'
-             onclick="toggleItem(this)">
-          <div class="cb-wrap"><span class="cb-tick">✓</span></div>
-          <div class="item-info">
-            <div class="item-name">Peinture Wanderer</div>
-            <div class="item-desc">Remplace la peinture par une affiche de propagande merjienne.</div>
-            <span class="item-tag tag-visuel">🖼 Visuel</span>
-          </div>
-        </div>
-
       </div>
+
+      <!-- SKIN CREEPER -->
+      <div style="margin-bottom:18px;">
+        <div class="subcategory-label">🐉 Entités</div>
+        <div class="item-list">
+          <div class="item" data-id="creeper-skin" data-group="visuels"
+               data-files='["assets/minecraft/textures/entity/creeper/creeper.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Skin du Creeper</div>
+              <div class="item-desc">Remplace la texture du Creeper par la version Merje.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PORTRAITS OFFICIELS -->
+      <div style="margin-bottom:18px;">
+        <div class="subcategory-label">🖼 Portraits Officiels</div>
+        <div class="item-list">
+          <div class="item" data-id="painting-alban" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/alban.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Alban</div>
+              <div class="item-desc">Portrait officiel — Alban.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-aztec" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/aztec.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Aztec</div>
+              <div class="item-desc">Portrait officiel — Aztec.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-aztec2" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/aztec2.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Aztec 2</div>
+              <div class="item-desc">Portrait officiel — Aztec 2.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-bomb" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/bomb.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Bomb</div>
+              <div class="item-desc">Portrait officiel — Bomb.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-kebab" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/kebab.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Kebab</div>
+              <div class="item-desc">Portrait officiel — Kebab.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-meditative" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/meditative.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Meditative</div>
+              <div class="item-desc">Portrait officiel — Meditative.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-plant" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/plant.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Plant</div>
+              <div class="item-desc">Portrait officiel — Plant.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-wasteland" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/wasteland.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Wasteland</div>
+              <div class="item-desc">Portrait officiel — Wasteland.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFFICHES DE PROPAGANDE -->
+      <div style="margin-bottom:6px;">
+        <div class="subcategory-label">📢 Affiches de Propagande</div>
+        <div class="item-list">
+          <div class="item" data-id="painting-pool" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/pool.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Pool</div>
+              <div class="item-desc">Affiche de propagande — Pool.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-donkey-kong" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/donkey_kong.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Donkey Kong</div>
+              <div class="item-desc">Affiche de propagande — Donkey Kong.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-sunset" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/sunset.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Sunset</div>
+              <div class="item-desc">Affiche de propagande — Sunset.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+          <div class="item" data-id="painting-wanderer" data-group="visuels"
+               data-files='["assets/minecraft/textures/painting/wanderer.png"]'
+               onclick="toggleItem(this)">
+            <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+            <div class="item-info">
+              <div class="item-name">Wanderer</div>
+              <div class="item-desc">Affiche de propagande — Wanderer.</div>
+              <span class="item-tag tag-visuel">🖼 Visuel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -434,8 +573,20 @@
     "assets/minecraft/sounds/music_disc/11.ogg",
     "assets/minecraft/sounds/entity/creeper/death.ogg",
     "assets/minecraft/sounds/entity/creeper/primed.ogg",
+    "assets/minecraft/textures/entity/creeper/creeper.png",
     "assets/minecraft/textures/painting/skeleton.png",
     "assets/minecraft/textures/painting/wanderer.png",
+    "assets/minecraft/textures/painting/alban.png",
+    "assets/minecraft/textures/painting/aztec.png",
+    "assets/minecraft/textures/painting/aztec2.png",
+    "assets/minecraft/textures/painting/bomb.png",
+    "assets/minecraft/textures/painting/kebab.png",
+    "assets/minecraft/textures/painting/meditative.png",
+    "assets/minecraft/textures/painting/plant.png",
+    "assets/minecraft/textures/painting/wasteland.png",
+    "assets/minecraft/textures/painting/pool.png",
+    "assets/minecraft/textures/painting/donkey_kong.png",
+    "assets/minecraft/textures/painting/sunset.png",
   ]);
 
   // ── Entrées sounds.json par item ──
