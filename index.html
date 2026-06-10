@@ -262,6 +262,17 @@
     <div class="section-body" id="body-sec-sons">
       <div class="item-list">
 
+        <div class="item" data-id="player-death" data-group="sons"
+             data-files='["assets/minecraft/sounds/entity/player/death.ogg"]'
+             onclick="toggleItem(this)">
+          <div class="cb-wrap"><span class="cb-tick">✓</span></div>
+          <div class="item-info">
+            <div class="item-name">Mort du Joueur</div>
+            <div class="item-desc">Son de mort du joueur remplacé par "putain, enculé de bot de merde".</div>
+            <span class="item-tag tag-son">🎵 Son</span>
+          </div>
+        </div>
+
         <div class="item" data-id="disc11" data-group="sons"
              data-files='["assets/minecraft/sounds/music_disc/11.ogg"]'
              onclick="toggleItem(this)">
@@ -339,7 +350,7 @@
         </div>
       </div>
 
-      <!-- SKIN CREEPER -->
+      <!-- ENTITÉS -->
       <div style="margin-bottom:18px;">
         <div class="subcategory-label">🐉 Entités</div>
         <div class="item-list">
@@ -468,7 +479,7 @@
                onclick="toggleItem(this)">
             <div class="cb-wrap"><span class="cb-tick">✓</span></div>
             <div class="item-info">
-              <div class="item-name">courbet</div>
+              <div class="item-name">Courbet</div>
               <div class="item-desc">Affiche de propagande 2x1.</div>
               <span class="item-tag tag-visuel">🖼 Visuel</span>
             </div>
@@ -498,7 +509,7 @@
                onclick="toggleItem(this)">
             <div class="cb-wrap"><span class="cb-tick">✓</span></div>
             <div class="item-info">
-              <div class="item-name">graham</div>
+              <div class="item-name">Graham</div>
               <div class="item-desc">Affiche de propagande délires amitiés pixels 1x2.</div>
               <span class="item-tag tag-visuel">🖼 Visuel</span>
             </div>
@@ -586,12 +597,12 @@
 
   // ── Fichiers chiffrés sur GitHub (stockés en .enc) ──
   const FICHIERS_CHIFFRES = new Set([
+    "assets/minecraft/sounds/entity/player/death.ogg",
     "assets/minecraft/sounds/music_disc/11.ogg",
     "assets/minecraft/sounds/entity/creeper/death.ogg",
     "assets/minecraft/sounds/entity/creeper/primed.ogg",
     "assets/minecraft/textures/entity/creeper/creeper.png",
     "assets/minecraft/textures/painting/skeleton.png",
-    "assets/minecraft/textures/painting/graham.png",
     "assets/minecraft/textures/painting/alban.png",
     "assets/minecraft/textures/painting/aztec.png",
     "assets/minecraft/textures/painting/aztec2.png",
@@ -603,10 +614,17 @@
     "assets/minecraft/textures/painting/courbet.png",
     "assets/minecraft/textures/painting/donkey_kong.png",
     "assets/minecraft/textures/painting/sunset.png",
+    "assets/minecraft/textures/painting/graham.png",
   ]);
 
   // ── Entrées sounds.json par item ──
   const SOUNDS_JSON_ENTRIES = {
+    "player-death": {
+      "entity.player.death": {
+        "replace": true,
+        "sounds": [{ "name": "entity/player/death", "pitch": 1.0, "volume": 1.0 }]
+      }
+    },
     "disc11": {
       "music_disc.11": {
         "replace": true,
@@ -639,9 +657,7 @@
   function makeKeystream(key, length) {
     const keyBytes = new TextEncoder().encode(key);
     const stream = new Uint8Array(length);
-    for (let i = 0; i < length; i++) {
-      stream[i] = keyBytes[i % keyBytes.length];
-    }
+    for (let i = 0; i < length; i++) stream[i] = keyBytes[i % keyBytes.length];
     return stream;
   }
 
@@ -649,9 +665,7 @@
     const data = new Uint8Array(buffer);
     const ks   = makeKeystream(MERJE_KEY, data.length);
     const out  = new Uint8Array(data.length);
-    for (let i = 0; i < data.length; i++) {
-      out[i] = data[i] ^ ks[i];
-    }
+    for (let i = 0; i < data.length; i++) out[i] = data[i] ^ ks[i];
     return out.buffer;
   }
 
@@ -661,12 +675,7 @@
     const s = document.createElement('div');
     s.className = 'star';
     const size = Math.random() * 2.5 + 0.5;
-    s.style.cssText = `
-      left:${Math.random()*100}%;top:${Math.random()*100}%;
-      width:${size}px;height:${size}px;
-      --d:${(Math.random()*3+2).toFixed(1)}s;
-      --delay:-${(Math.random()*5).toFixed(1)}s;
-    `;
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${(Math.random()*3+2).toFixed(1)}s;--delay:-${(Math.random()*5).toFixed(1)}s;`;
     starsEl.appendChild(s);
   }
 
@@ -677,7 +686,7 @@
     "Le pack que ta mère utilise !",
     "Optimisé pour les joueurs chill !",
     "Approuvé par Merje lui-même !",
-    "100% cringe-free depuis 2023 !",
+    "100% cringe-free depuis 2026 !",
     "Maintenant avec plus de saucisse !",
     "Vu à la TV* (*non)",
     "Pack certifié ISO 9001 !",
@@ -687,11 +696,7 @@
   const splashEl = document.getElementById('splash-text');
   setInterval(() => {
     splashEl.style.opacity = 0;
-    setTimeout(() => {
-      si = (si + 1) % splashes.length;
-      splashEl.textContent = splashes[si];
-      splashEl.style.opacity = 1;
-    }, 400);
+    setTimeout(() => { si = (si + 1) % splashes.length; splashEl.textContent = splashes[si]; splashEl.style.opacity = 1; }, 400);
   }, 4000);
 
   // ── Sections ──
@@ -704,14 +709,10 @@
   }
 
   // ── Items ──
-  function toggleItem(el) {
-    el.classList.toggle('checked');
-    updateCount();
-  }
+  function toggleItem(el) { el.classList.toggle('checked'); updateCount(); }
 
   function toggleRadio(el) {
-    const group = el.dataset.group;
-    document.querySelectorAll(`[data-group="${group}"]`).forEach(r => r.classList.remove('checked'));
+    document.querySelectorAll(`[data-group="${el.dataset.group}"]`).forEach(r => r.classList.remove('checked'));
     el.classList.add('checked');
     updateCount();
   }
@@ -722,15 +723,11 @@
   }
 
   function selectAll(group) {
-    document.querySelectorAll(`[data-group="${group}"]`).forEach(el => {
-      if (!el.dataset.radio) el.classList.add('checked');
-    });
+    document.querySelectorAll(`[data-group="${group}"]`).forEach(el => { if (!el.dataset.radio) el.classList.add('checked'); });
     updateCount();
   }
 
-  function getSelected() {
-    return Array.from(document.querySelectorAll('.item.checked'));
-  }
+  function getSelected() { return Array.from(document.querySelectorAll('.item.checked')); }
 
   function updateCount() {
     const n = getSelected().length;
@@ -747,58 +744,37 @@
     const zip = new JSZip();
     const selected = getSelected();
 
-    // pack.mcmeta — toujours inclus
     zip.file("pack.mcmeta", PACK_MCMETA);
 
-    // pack.png — fetch depuis GitHub, ignoré silencieusement si absent
     try {
       const r = await fetch(GITHUB_RAW + "pack.png");
-      if (r.ok) {
-        const buf = await r.arrayBuffer();
-        zip.file("pack.png", buf);
-      }
+      if (r.ok) zip.file("pack.png", await r.arrayBuffer());
     } catch (e) {}
 
-    // sounds.json — construit uniquement avec les sons cochés
     let soundsJson = {};
     for (const el of selected) {
       const entries = SOUNDS_JSON_ENTRIES[el.dataset.id];
-      if (entries) {
-        soundsJson = Object.assign(soundsJson, entries);
-      }
+      if (entries) soundsJson = Object.assign(soundsJson, entries);
     }
     if (Object.keys(soundsJson).length > 0) {
       zip.file("assets/minecraft/sounds.json", JSON.stringify(soundsJson, null, 2));
     }
 
-    // Fichiers sélectionnés
     const promises = [];
     for (const el of selected) {
       const id    = el.dataset.id;
       const files = JSON.parse(el.dataset.files);
-
       for (const filePath of files) {
         let repoPath = filePath;
         if (id === 'pano-jour') repoPath = filePath.replace('background/', 'background/jour/');
         if (id === 'pano-nuit') repoPath = filePath.replace('background/', 'background/nuit/');
-
         const estChiffre = FICHIERS_CHIFFRES.has(filePath);
         const url = GITHUB_RAW + repoPath + (estChiffre ? ".enc" : "");
-
         promises.push(
           fetch(url)
-            .then(r => {
-              if (!r.ok) throw new Error("404");
-              return r.arrayBuffer();
-            })
-            .then(buf => {
-              const finalBuf = estChiffre ? dechiffrer(buf) : buf;
-              zip.file(filePath, finalBuf);
-            })
-            .catch(() => {
-              zip.file(filePath + ".MANQUANT.txt",
-                "Fichier introuvable : " + url + "\nVérifie que le fichier existe bien dans le repo GitHub.");
-            })
+            .then(r => { if (!r.ok) throw new Error("404"); return r.arrayBuffer(); })
+            .then(buf => zip.file(filePath, estChiffre ? dechiffrer(buf) : buf))
+            .catch(() => zip.file(filePath + ".MANQUANT.txt", "Fichier introuvable : " + url))
         );
       }
     }
@@ -813,10 +789,7 @@
 
     btn.textContent = '✓ Téléchargé !';
     showToast('Pack généré avec ' + selected.length + ' élément(s) !');
-    setTimeout(() => {
-      btn.textContent = '⬇ Télécharger mon pack';
-      btn.disabled = false;
-    }, 2500);
+    setTimeout(() => { btn.textContent = '⬇ Télécharger mon pack'; btn.disabled = false; }, 2500);
   }
 
   function showToast(msg) {
